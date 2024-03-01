@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
 
-require ('custom-env').env('staging')
+require ('custom-env').env('dev')
 
 export const AppDataSource = new DataSource({
     type: "mssql",
