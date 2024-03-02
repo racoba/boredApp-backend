@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableColumn, TableForeignKey } from "typeorm";
 
 export class CreateUsersTable1709337863722 implements MigrationInterface {
 
@@ -26,6 +26,21 @@ export class CreateUsersTable1709337863722 implements MigrationInterface {
                 }
             ]
         }))
+        // await queryRunner.addColumn("Users", new TableColumn({
+        //     name: "walletId",
+        //     isNullable: true,
+        //     type: "int",
+        // }));
+
+        // await queryRunner.createForeignKey(
+        //     "Users",
+        //     new TableForeignKey({
+        //         columnNames: ["walletId"],
+        //         referencedColumnNames: ["id"],
+        //         referencedTableName: "Wallets",
+        //         onDelete: "CASCADE",
+        //     }),
+        // )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

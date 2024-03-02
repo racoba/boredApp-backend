@@ -13,7 +13,7 @@ class User {
     @Column("varchar", { length: 30, nullable: false })
     email: string;
 
-    @OneToOne(() => Wallet, wallet => wallet.id)
+    @OneToOne(() => Wallet, wallet => wallet.id, { nullable: true })
     wallet: Wallet;
 }
 
