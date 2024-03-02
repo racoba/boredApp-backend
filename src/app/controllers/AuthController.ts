@@ -10,17 +10,15 @@ const userRepository = UserRepository.repository;
 
 authRouter.post("/register", async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { username, password, email, walletId } = req.body;
+        const { password, email } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const userExists = await UserRepository.getUserByEmail(email);
         if (userExists) {
             return res.sendStatus(409)
         }
         const user = userRepository.create({
-            username,
-            email,
+            ...req.body,
             password: hashedPassword,
-            wallet: walletId || null
         });
 
         await userRepository.save(user);

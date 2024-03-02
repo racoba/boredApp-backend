@@ -7,13 +7,13 @@ class User {
     @PrimaryGeneratedColumn("increment")
     id: number;
 
-    @Column("varchar", { length: 30, nullable: false })
+    @Column("varchar", { length: 50, nullable: false })
     username: string;
 
-    @Column("varchar", { length: 30, nullable: false })
+    @Column("varchar", { length: 50, nullable: false })
     password: string;
 
-    @Column("varchar", { length: 30, nullable: false })
+    @Column("varchar", { length: 50, nullable: false })
     email: string;
 
     @OneToOne(type => Wallet, user => User)
