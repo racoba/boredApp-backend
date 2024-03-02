@@ -81,7 +81,7 @@ function verifyToken(req: Request, res: Response, next: () => void) {
     }
 }
 
-authRouter.get("/userinfo", verifyToken, async (req: Request, res: Response) => {
+authRouter.get("/user-info", verifyToken, async (req: Request, res: Response) => {
     try {
         const { userId } = req.body.user;
         const user = await UserRepository.getUserById(userId);
