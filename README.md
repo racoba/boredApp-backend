@@ -11,3 +11,5 @@ Steps to run this project:
 Comandos de ajuda
 
 npm run typeorm migration:create src/database/migrations/NOMEDAMIGRATION
+
+npm run typeorm migration:generate ./src/database/migrations/NOMEDOARQUIVO -- -d ./src/database/data-source.ts

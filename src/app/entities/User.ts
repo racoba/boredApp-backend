@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from "typeorm";
 import Wallet from "./Wallet";
 
 @Entity("Users")
@@ -13,7 +13,7 @@ class User {
     @Column("varchar", { length: 30, nullable: false })
     email: string;
 
-    @OneToOne(() => Wallet, wallet => wallet.id, { nullable: true })
+    @OneToOne(type => Wallet, user => User, { eager: true })
     wallet: Wallet;
 }
 
