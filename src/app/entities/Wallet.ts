@@ -13,7 +13,7 @@ class Wallet {
     @JoinColumn()
     user: User;
 
-    @ManyToMany(type => Asset, wallet => Wallet, { eager: true })
+    @ManyToMany(type => Asset, wallet => Wallet)
     @JoinTable()
     asset: Asset[]
 }

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import Wallet from "./Wallet";
 
 @Entity("Assets")
@@ -15,7 +15,7 @@ class Asset {
     averagePrice: number;
 
     @ManyToMany(type => Wallet, asset => Asset, { eager: true })
-    @JoinColumn()
+    @JoinTable()
     wallet: Wallet[]
 }
 
