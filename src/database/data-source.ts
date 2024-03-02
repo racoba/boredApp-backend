@@ -1,12 +1,12 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
+require("dotenv").config({})
 
-require ('custom-env').env('dev')
 
 export const AppDataSource = new DataSource({
     type: "mssql",
-    host: process.env.DB_HOST,
-    port:3306,
+    host: process.env.DB_HOST?.toString(),
+    port: 1433,
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
@@ -15,4 +15,8 @@ export const AppDataSource = new DataSource({
     entities:["src/entity/*.ts"],
     migrations: ["src/migration/*.ts"],
     subscribers: [],
+    extra: {
+        trustServerCertificate: true,
+        useUTC: true,
+      },
 })
