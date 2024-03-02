@@ -1,7 +1,6 @@
 import { Request, Response, Router } from "express";
 import jwt, { Secret, } from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
 import UserRepository from "../repositories/UserRepository";
 
 export const Secret_Key: Secret = "safa325624egedhwey373u45u5u"
@@ -11,6 +10,7 @@ const userRepository = UserRepository.repository;
 authRouter.post("/register", async (req: Request, res: Response): Promise<Response> => {
     try {
         const { password, email } = req.body;
+
         const hashedPassword = await bcrypt.hash(password, 10);
         const userExists = await UserRepository.getUserByEmail(email);
         if (userExists) {
