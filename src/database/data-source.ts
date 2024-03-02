@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities:["src/entity/*.ts"],
-    migrations: ["src/migration/*.ts"],
+    migrations: ["src/database/migrations/*.ts"],
     subscribers: [],
     extra: {
         trustServerCertificate: true,
