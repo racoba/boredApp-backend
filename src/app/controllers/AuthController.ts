@@ -23,7 +23,7 @@ authRouter.post("/register", async (req: Request, res: Response): Promise<Respon
 
         await userRepository.save(user);
 
-        return res.status(200).json(user);
+        return res.status(200).json({message: "User has been created"});
     } catch (e) {
         console.error(e);
         return res.status(400);
@@ -81,7 +81,7 @@ function verifyToken(req: Request, res: Response, next: () => void) {
     }
 }
 
-authRouter.get("/user-info", verifyToken, async (req: Request, res: Response) => {
+authRouter.get("/validate-token", verifyToken, async (req: Request, res: Response) => {
     try {
         const { userId } = req.body.user;
         const user = await UserRepository.getUserById(userId);
@@ -89,8 +89,8 @@ authRouter.get("/user-info", verifyToken, async (req: Request, res: Response) =>
         if (!user) {
             return res.status(400).json({ message: "User not found" });
         }
-        const { password, ...userInfo } = user;
-        res.json({ user: userInfo });
+
+        res.json({status: true, message: "Token Validated"});
     } catch (e) {
         console.error("Error fetching user info: ", e);
         res.status(500).json({ message: "Server Error" });
