@@ -1,6 +1,7 @@
 import Wallet from "../entities/Wallet";
 import { AppDataSource } from "../../database/data-source";
 import userRepository from "./UserRepository";
+
 const repository = AppDataSource.getRepository(Wallet);
 
 const getWaleltByUserId = async (userId: number): Promise<Wallet | null> => {

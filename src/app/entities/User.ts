@@ -16,7 +16,7 @@ class User {
     @Column("varchar", { length: 50, nullable: false })
     email: string;
 
-    @OneToOne(type => Wallet, user => User)
+    @OneToOne(type => Wallet, user => User, { nullable: true })
     @JoinColumn()
     wallet: Wallet;
 }

@@ -9,7 +9,7 @@ class Wallet {
     @PrimaryGeneratedColumn("increment")
     id: number;
 
-    @OneToOne(type => User, wallet => Wallet, { eager: true })
+    @OneToOne(type => User, wallet => Wallet, { eager: true, nullable: true})
     @JoinColumn()
     user: User;
 
