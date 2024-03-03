@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinColumn, JoinTable, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import User from "./User";
 import Asset from "./Asset";
 
@@ -9,11 +9,11 @@ class Wallet {
     @PrimaryGeneratedColumn("increment")
     id: number;
 
-    @OneToOne(type => User, wallet => Wallet, { eager: true, nullable: true})
+    @OneToOne(type => User, wallet => Wallet, { nullable: true })
     @JoinColumn()
     user: User;
 
-    @ManyToMany(type => Asset, wallet => Wallet)
+    @OneToMany(type => Asset, wallet => Wallet)
     @JoinTable()
     asset: Asset[]
 }

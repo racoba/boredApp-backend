@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { authRouter, userRouter, walletRouter } from "../controllers/index";
+import { authRouter, userRouter, walletRouter, assetRouter } from "../controllers/index";
 
 const routers = Router();
 
 routers.use("/users", userRouter);
 routers.use("/auth", authRouter);
 routers.use("/wallets", walletRouter);
-// routers.use("/assets", assetsRouter);
+routers.use("/assets", assetRouter);
 
 export default routers;

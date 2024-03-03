@@ -21,11 +21,10 @@ walletRouter.post("/create-wallet", async (req: Request, res: Response): Promise
         });
 
         await WalletRepository.repository.save(wallet);
-        console.log(wallet);
-        console.log(user);
+        
         const { id, ...updatableUser } = user;
 
-        await UserRepository.repository.update(userId, { ...updatableUser , wallet: wallet as DeepPartial<Wallet>})
+        await UserRepository.repository.update(userId, { ...updatableUser, wallet: wallet as DeepPartial<Wallet> })
 
         await UserRepository.repository.save(user);
 
@@ -34,6 +33,12 @@ walletRouter.post("/create-wallet", async (req: Request, res: Response): Promise
         console.error(e);
         return res.status(400);
     }
+});
+
+walletRouter.get("/get-wallet", async (req: Request, res: Response): Promise<Response> => {
+    const { userId } = req.body;
+    const wallet = await WalletRepository.getWalletByUserId(userId);
+    return res.status(200).json(wallet);
 });
 
 export default walletRouter;

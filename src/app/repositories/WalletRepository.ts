@@ -4,7 +4,7 @@ import userRepository from "./UserRepository";
 
 const repository = AppDataSource.getRepository(Wallet);
 
-const getWaleltByUserId = async (userId: number): Promise<Wallet | null> => {
+const getWalletByUserId = async (userId: number): Promise<Wallet | null> => {
     const user = await userRepository.getUserById(userId);
     if (!user) {
         return null;
@@ -19,6 +19,6 @@ const getWalletById = async (id: number): Promise<Wallet | null> => {
 
 export default {
     repository,
-    getWaleltByUserId,
+    getWalletByUserId,
     getWalletById,
 }
