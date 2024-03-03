@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import jwt, { Secret, } from "jsonwebtoken";
+import jwt, { JwtPayload, Secret, } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import UserRepository from "../repositories/UserRepository";
 
@@ -82,15 +82,14 @@ function verifyToken(req: Request, res: Response, next: () => void) {
 }
 
 authRouter.get("/validate-token", async (req: Request, res: Response) => {
-    const token = req.headers.authorization?.toString();
-
+    const token = req.headers.authorization;
     if (!token) {
         return res.status(401).json({ message: "Acess Denied" });
     }
 
     try {
-        const decodedUserId = await jwt.verify(token, process.env.SECRET_KEY as Secret)
-        const user = await UserRepository.getUserById(parseInt(decodedUserId.toString()));
+        const decoded: JwtPayload  = jwt.verify(token, process.env.SECRET_KEY as Secret, { complete: true })
+        const user = await UserRepository.getUserById(decoded.userId);
 
         if (!user) {
             return res.status(400).json({ message: "User not found" });
