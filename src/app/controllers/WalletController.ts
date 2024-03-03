@@ -28,14 +28,14 @@ walletRouter.post("/create-wallet", async (req: Request, res: Response): Promise
 
         await UserRepository.repository.save(user);
 
-        return res.status(200).json({ message: "Wallet has been created" });
+        return res.status(200).json({ message: "Wallet has been created", walletId: updatableUser.wallet.id });
     } catch (e) {
         console.error(e);
         return res.status(400);
     }
 });
 
-walletRouter.get("/get-user-wallet", async (req: Request, res: Response): Promise<Response> => {
+walletRouter.get("/get-user-wallet/:id", async (req: Request, res: Response): Promise<Response> => {
     const { userId } = req.body;
     const wallet = await WalletRepository.getWalletByUserId(userId);
     return res.status(200).json(wallet);
