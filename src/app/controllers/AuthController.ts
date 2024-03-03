@@ -23,7 +23,7 @@ authRouter.post("/register", async (req: Request, res: Response): Promise<Respon
 
         await userRepository.save(user);
 
-        return res.status(200).json({message: "User has been created"});
+        return res.status(200).json({ message: "User has been created" });
     } catch (e) {
         console.error(e);
         return res.status(400);
@@ -54,7 +54,7 @@ authRouter.post("/login", async (req: Request, res: Response) => {
             }
         );
 
-        res.json({ token });
+        return res.json({ token, username: user.username });
     } catch (e) {
         console.error("Error logging in: ", e);
         res.status(500).json({ message: "Server Error" });
@@ -81,7 +81,30 @@ function verifyToken(req: Request, res: Response, next: () => void) {
     }
 }
 
-authRouter.get("/validate-token", verifyToken, async (req: Request, res: Response) => {
+authRouter.get("/validate-token", async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.toString();
+
+    if (!token) {
+        return res.status(401).json({ message: "Acess Denied" });
+    }
+
+    try {
+        const decodedUserId = await jwt.verify(token, process.env.SECRET_KEY as Secret)
+        const user = await UserRepository.getUserById(parseInt(decodedUserId.toString()));
+
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
+
+        return res.json({ user, message: "Token Validated" });
+
+    } catch (e) {
+        console.error("Error fetching user info: ", e);
+        return res.status(500).json({ message: "Server Error" });
+    }
+})
+
+authRouter.get("/user-info", verifyToken, async (req: Request, res: Response) => {
     try {
         const { userId } = req.body.user;
         const user = await UserRepository.getUserById(userId);
@@ -89,8 +112,8 @@ authRouter.get("/validate-token", verifyToken, async (req: Request, res: Respons
         if (!user) {
             return res.status(400).json({ message: "User not found" });
         }
-
-        res.json({status: true, message: "Token Validated"});
+        const { password, ...userInfo } = user;
+        res.json({ user: userInfo });
     } catch (e) {
         console.error("Error fetching user info: ", e);
         res.status(500).json({ message: "Server Error" });
