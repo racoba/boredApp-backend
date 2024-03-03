@@ -103,20 +103,6 @@ authRouter.get("/validate-token", async (req: Request, res: Response) => {
     }
 })
 
-authRouter.get("/user-info", verifyToken, async (req: Request, res: Response) => {
-    try {
-        const { userId } = req.body.user;
-        const user = await UserRepository.getUserById(userId);
 
-        if (!user) {
-            return res.status(400).json({ message: "User not found" });
-        }
-        const { password, ...userInfo } = user;
-        res.json({ user: userInfo });
-    } catch (e) {
-        console.error("Error fetching user info: ", e);
-        res.status(500).json({ message: "Server Error" });
-    }
-})
 
 export default authRouter;

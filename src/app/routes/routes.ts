@@ -1,12 +1,11 @@
 import { Router } from "express";
-import userRouter from "../controllers/UserController"
-import authRouter from "../controllers/AuthController";
+import { authRouter, userRouter, walletRouter } from "../controllers/index";
 
 const routers = Router();
 
 routers.use("/users", userRouter);
 routers.use("/auth", authRouter);
-// routers.use("/wallets", walletsRouter);
+routers.use("/wallets", walletRouter);
 // routers.use("/assets", assetsRouter);
 
 export default routers;
