@@ -54,32 +54,34 @@ authRouter.post("/login", async (req: Request, res: Response) => {
             }
         );
 
-        return res.json({ token, username: user.username });
+        const { password: pass, ...userData } = user;
+
+        return res.json({ token, user: userData });
     } catch (e) {
         console.error("Error logging in: ", e);
         res.status(500).json({ message: "Server Error" });
     }
 })
 
-function verifyToken(req: Request, res: Response, next: () => void) {
-    const token = req.headers.authorization?.split(" ")[1];
+// function verifyToken(req: Request, res: Response, next: () => void) {
+//     const token = req.headers.authorization?.split(" ")[1];
 
-    if (!token) {
-        return res.status(401).json({ message: "Acess Denied" });
-    }
+//     if (!token) {
+//         return res.status(401).json({ message: "Acess Denied" });
+//     }
 
-    try {
-        const decoded = jwt.verify(token, process.env.SECRET_KEY as Secret)
-        req.body.user = decoded;
-        console.log(req.body.user);
+//     try {
+//         const decoded = jwt.verify(token, process.env.SECRET_KEY as Secret)
+//         req.body.user = decoded;
+//         console.log(req.body.user);
 
-        next();
+//         next();
 
-    } catch (e) {
-        console.error("Error verifying token: ", e);
-        res.status(401).json({ message: "Invalid Token" });
-    }
-}
+//     } catch (e) {
+//         console.error("Error verifying token: ", e);
+//         res.status(401).json({ message: "Invalid Token" });
+//     }
+// }
 
 authRouter.get("/validate-token", async (req: Request, res: Response) => {
     const token = req.headers.authorization;
@@ -88,7 +90,7 @@ authRouter.get("/validate-token", async (req: Request, res: Response) => {
     }
 
     try {
-        const decoded: JwtPayload  = jwt.verify(token, process.env.SECRET_KEY as Secret, { complete: true })
+        const decoded: JwtPayload = jwt.verify(token, process.env.SECRET_KEY as Secret, { complete: true })
         const user = await UserRepository.getUserById(decoded.userId);
 
         if (!user) {

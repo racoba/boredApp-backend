@@ -35,7 +35,7 @@ walletRouter.post("/create-wallet", async (req: Request, res: Response): Promise
     }
 });
 
-walletRouter.get("/get-wallet", async (req: Request, res: Response): Promise<Response> => {
+walletRouter.get("/get-user-wallet", async (req: Request, res: Response): Promise<Response> => {
     const { userId } = req.body;
     const wallet = await WalletRepository.getWalletByUserId(userId);
     return res.status(200).json(wallet);

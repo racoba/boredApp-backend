@@ -14,6 +14,9 @@ class Asset {
     @Column("float")
     averagePrice: number;
 
+    @Column("varchar", { length: 10 })
+    type: string;
+
     @ManyToOne(type => Wallet, asset => Asset, { eager: true })
     @JoinTable()
     wallet: Wallet
