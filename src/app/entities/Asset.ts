@@ -17,6 +17,9 @@ class Asset {
     @Column("varchar", { length: 10 })
     type: string;
 
+    @Column("varchar", {length: 8})
+    code: string;
+
     @ManyToOne(type => Wallet, asset => Asset, { eager: true })
     @JoinTable()
     wallet: Wallet

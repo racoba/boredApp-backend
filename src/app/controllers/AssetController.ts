@@ -38,4 +38,14 @@ assetRouter.get("/get-assets-by-wallet/:walletId", async (req: Request, res: Res
     }
 });
 
+assetRouter.get("/count-wallet-assets/:walletId", async (req: Request, res: Response): Promise<Response> => {
+    const { walletId } = req.params;
+    try{
+        const assets = await AssetRepository.countAssetsByWalletId(parseInt(walletId));
+        return res.status(200).json(assets);
+    } catch (e){
+        return res.status(400);
+    }
+});
+
 export default assetRouter;

@@ -96,7 +96,6 @@ authRouter.get("/validate-token", async (req: Request, res: Response) => {
         if (!user) {
             return res.status(400).json({ message: "User not found" });
         }
-
         return res.json({ user, message: "Token Validated" });
 
     } catch (e) {

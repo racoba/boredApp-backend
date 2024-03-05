@@ -16,11 +16,17 @@ const getAssetById = async (id: number): Promise<Asset | null> => {
     return repository.findOneBy({ id });
 }
 
-
-
+const countAssetsByWalletId = async (walletId: number): Promise<number> => {
+    const wallet = await walletRepository.getWalletById(walletId);
+    if (!wallet) {
+        throw new Error("Wallet Not Found");
+    }
+    return repository.countBy({ wallet });
+}
 
 export default {
     repository,
     getAssetById,
+    countAssetsByWalletId,
     getAssetsByWalletId,
 }
