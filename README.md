@@ -8,8 +8,8 @@ Steps to run this project:
 
 
 
-Comandos de ajuda
+Helpers
 
-npm run typeorm migration:create src/database/migrations/NOMEDAMIGRATION
+npm run typeorm migration:create src/database/migrations/NOMEDAMIGRATION (MIGRATION EM BRANCO)
 
 npm run typeorm migration:generate ./src/database/migrations/NOMEDOARQUIVO -- -d ./src/database/data-source.ts
