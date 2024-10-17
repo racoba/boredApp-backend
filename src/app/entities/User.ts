@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import UserTask from "./UserTask";
+import Group from "./Group";
 
 @Entity("Users")
 class User {
@@ -17,6 +19,13 @@ class User {
 
     @Column("varchar", { length: 50, nullable: true })
     pictureUrl: string;
+
+    @OneToMany(() => UserTask, (userTask) => userTask.user)
+    userTasks: UserTask[];
+
+    @ManyToMany(() => Group, (group) => group.users)
+    @JoinTable()
+    groups: Group[];
 }
 
 export default User;
