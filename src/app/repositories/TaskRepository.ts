@@ -15,4 +15,5 @@ const getTaskById = async (id: number): Promise<Task | null> => {
 export default {
     repository,
     getAllTasks,
+    getTaskById,
 }
