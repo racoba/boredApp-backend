@@ -4,6 +4,14 @@ import { AppDataSource } from "../../database/data-source";
 
 const repository = AppDataSource.getRepository(UserTask);
 
+//TODO:
+// GetAllUserTasks
+// GetUserTask
+// GetAllCompletedTasks
+// GetAllRejectedTasks
+// GetAllInProgressTasks
+// GetTaskByName
+
 const getAllUserTasks = async (): Promise<IUserTask[]> => {
     return repository.find();
 }

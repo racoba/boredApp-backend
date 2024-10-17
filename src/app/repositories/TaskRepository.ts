@@ -2,6 +2,8 @@ import ITask from "../interfaces/ITask";
 import Task from "../entities/Task";
 import { AppDataSource } from "../../database/data-source";
 
+
+
 const repository = AppDataSource.getRepository(Task);
 
 const getAllTasks = async (): Promise<ITask[]> => {

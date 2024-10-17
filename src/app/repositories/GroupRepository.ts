@@ -2,6 +2,11 @@ import IGroup from "../interfaces/IGroup";
 import Group from "../entities/Group";
 import { AppDataSource } from "../../database/data-source";
 
+//TODO:
+// GetAllUserGroups
+// CreateGroup
+// AddGroupUser
+
 const repository = AppDataSource.getRepository(Group);
 
 const getAllGroups = async (): Promise<IGroup[]> => {
