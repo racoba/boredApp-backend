@@ -17,7 +17,7 @@ export class UserTask {
     task: Task;
 
     @Column("varchar", { length: 20, nullable: false })
-    status: string;  // Ex: 'completed', 'pending', 'rejected'.
+    status: string;  // Ex: 'completed', 'in progress', 'abandoned'.
 }
 
 export default UserTask;
