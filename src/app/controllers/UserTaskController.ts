@@ -89,4 +89,35 @@ userTaskRouter.get("/get-user-abandoned-tasks", async (req: Request, res: Respon
     return res.status(200).json(userTasks);
 });
 
+
+userTaskRouter.post("/abandon-task", async (req: Request, res: Response): Promise<Response> => {
+    const { userTaskId } = req.body;
+
+    const userTask = await UserTaskRepository.getUserTaskById(userTaskId);
+    if (!userTask) {
+        return res.status(404).json({ message: "User Task not found" });
+    }
+
+    userTask.status = "Abandoned";
+
+    await userTaskRepository.save(userTask);
+
+    return res.status(200).json({message: "User Task was abandoned"});
+});
+
+userTaskRouter.post("/complete-task", async (req: Request, res: Response): Promise<Response> => {
+    const { userTaskId } = req.body;
+
+    const userTask = await UserTaskRepository.getUserTaskById(userTaskId);
+    if (!userTask) {
+        return res.status(404).json({ message: "User Task not found" });
+    }
+
+    userTask.status = "Completed";
+
+    await userTaskRepository.save(userTask);
+
+    return res.status(200).json({message: "User Task status updated to completed"});
+});
+
 export default userTaskRouter;
