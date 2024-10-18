@@ -1,0 +1,1 @@
+export { mockedUserWithNoGroupsAndTasks, mockedUserWithNoId } from "../../__tests__/Mock/MockedUser"
