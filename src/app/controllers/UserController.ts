@@ -9,7 +9,7 @@ userRouter.get("/get-all-users", async (_req: Request, res: Response): Promise<R
     return res.status(200).json(users);
 });
 
-userRouter.get("/get-all-users", async (_req: Request, res: Response): Promise<Response> => {
+userRouter.get("/get-user-by-id", async (_req: Request, res: Response): Promise<Response> => {
     const { userId } = _req.body;
     const user = await UserRepository.getUserById(userId);
     return res.status(200).json(user);
