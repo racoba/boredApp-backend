@@ -65,6 +65,7 @@ const getUserTaskByName = async (name: string, userId: number): Promise<UserTask
 
 export default {
     repository,
+    getUserTaskByName,
     getAllUserTasks,
     getUserTaskById,
     getUserTasks,
