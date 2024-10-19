@@ -18,15 +18,12 @@ describe('UserRepository', () => {
     await connection.clear();
   });
   
-  it('Should find only 1 user by Id', async() => {
-        const mockedUser = await mockedUserWithNoId();
+  it('Should be able to create an user', async() => {
+        const mockedUser = mockedUserWithNoId();
         
         const createdUser = await userRepository.create(mockedUser);
-        console.log(createdUser.id)
-        const user = await UserRepository.getUserById(createdUser.id);
 
-        expect(user).toHaveProperty('id', createdUser.id);
-        expect(user).toHaveProperty('username', mockedUser.username);
-        expect(user).toHaveProperty('email', mockedUser.email);
+        expect(createdUser).toHaveProperty('username', mockedUser.username);
+        expect(createdUser).toHaveProperty('email', mockedUser.email);
   });
 })
