@@ -10,8 +10,8 @@ userRouter.get("/get-all-users", async (_req: Request, res: Response): Promise<R
 });
 
 userRouter.get("/get-user-by-id", async (_req: Request, res: Response): Promise<Response> => {
-    const { userId } = _req.body;
-    const user = await UserRepository.getUserById(userId);
+    const { userId } = _req.headers;
+    const user = await UserRepository.getUserById(parseInt(userId as string));
     return res.status(200).json(user);
 });
 

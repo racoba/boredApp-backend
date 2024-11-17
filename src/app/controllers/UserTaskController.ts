@@ -37,23 +37,23 @@ userTaskRouter.post("/create-user-task", async (req: Request, res: Response): Pr
     }
 })
 
-userTaskRouter.get("/get-user-tasks", async (req: Request, res: Response): Promise<Response> => {
-    const { userId, taskId } = req.body;
-
-        const user = await UserRepository.getUserById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
+userTaskRouter.get("/get-user-tasks/:id", async (req: Request, res: Response): Promise<Response> => {
+    const userId = req.params.id;
+    const user = await UserRepository.getUserById(parseInt(userId as string));
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    
     const userTasks = await UserTaskRepository.getUserTasks(user.id);
-
-    return res.status(200).json(userTasks);
+    console.log("+++++++++++++++++++++++++++++")
+    console.log(userTasks)
+    return res.status(200).json({history: userTasks});
 });
 
-userTaskRouter.get("/get-user-completed-tasks", async (req: Request, res: Response): Promise<Response> => {
-    const { userId, taskId } = req.body;
+userTaskRouter.get("/get-user-completed-tasks/:id", async (req: Request, res: Response): Promise<Response> => {
+    const userId = req.params.id;
 
-        const user = await UserRepository.getUserById(userId);
+        const user = await UserRepository.getUserById(parseInt(userId as string));
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -63,26 +63,26 @@ userTaskRouter.get("/get-user-completed-tasks", async (req: Request, res: Respon
     return res.status(200).json(userTasks);
 });
 
-userTaskRouter.get("/get-user-in-progress-tasks", async (req: Request, res: Response): Promise<Response> => {
-    const { userId, taskId } = req.body;
-
-        const user = await UserRepository.getUserById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
+userTaskRouter.get("/get-user-in-progress-tasks/:id", async (req: Request, res: Response): Promise<Response> => {
+    const userId = req.params.id;
+    
+    const user = await UserRepository.getUserById(parseInt(userId as string));
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
 
     const userTasks = await UserTaskRepository.getUserInProgressTasks(user.id);
 
-    return res.status(200).json(userTasks);
+    return res.status(200).json({ task: userTasks });
 });
 
-userTaskRouter.get("/get-user-abandoned-tasks", async (req: Request, res: Response): Promise<Response> => {
-    const { userId, taskId } = req.body;
+userTaskRouter.get("/get-user-abandoned-tasks/:id", async (req: Request, res: Response): Promise<Response> => {
+    const userId = req.params.id;
 
-        const user = await UserRepository.getUserById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
+    const user = await UserRepository.getUserById(parseInt(userId as string));
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
 
     const userTasks = await UserTaskRepository.getUserAbandonedTasks(user.id);
 

@@ -11,7 +11,7 @@ taskRouter.get("/get-all-tasks", async (_req: Request, res: Response): Promise<R
 
 taskRouter.get("/get-random-tasks", async (_req: Request, res: Response): Promise<Response> => {
     const tasks = await TaskRepository.getRandomTasks();
-    return res.status(200).json(tasks);
+    return res.status(200).json({tasks});
 });
 
 

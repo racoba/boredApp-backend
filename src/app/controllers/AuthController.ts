@@ -56,7 +56,7 @@ authRouter.post("/login", async (req: Request, res: Response) => {
 
         const { password: pass, ...userData } = user;
 
-        return res.json({ token, authUser: userData });
+        return res.json({ token, userId: userData.id, email: userData.email});
     } catch (e) {
         console.error("Error logging in: ", e);
         res.status(500).json({ message: "Server Error" });
