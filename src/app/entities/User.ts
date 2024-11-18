@@ -17,6 +17,9 @@ class User {
     @Column("varchar", { length: 50, nullable: false })
     email: string;
 
+    @Column("int", { nullable: false, default: 0 })
+    score: number;
+
     @Column("varchar", { length: 50, nullable: true })
     pictureUrl: string;
 
