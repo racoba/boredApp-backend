@@ -10,7 +10,10 @@ const getAllUserTasks = async (): Promise<IUserTask[]> => {
 }
 
 const getUserTaskById = async (id: number): Promise<UserTask | null> => {
-    return repository.findOneBy({ id });
+    return await repository.findOne({
+        where: { id },
+        relations: ["user", "task"],
+    });
 }
 
 const getUserTasks = async (userId: number): Promise<UserTask[] | null> => {

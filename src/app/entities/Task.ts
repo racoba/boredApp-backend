@@ -13,7 +13,7 @@ class Task {
     @Column("varchar", { length: 200, nullable: false })
     description: string;
 
-    @Column("varchar", { length: 50, nullable: true })
+    @Column("int", { nullable: true, default: 0 })
     value: number;
 
     @OneToMany(() => UserTask, (userTask) => userTask.task)

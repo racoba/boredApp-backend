@@ -9,8 +9,8 @@ userRouter.get("/get-all-users", async (_req: Request, res: Response): Promise<R
     return res.status(200).json(users);
 });
 
-userRouter.get("/get-user-by-id", async (_req: Request, res: Response): Promise<Response> => {
-    const { userId } = _req.headers;
+userRouter.get("/get-user-by-id/:id", async (_req: Request, res: Response): Promise<Response> => {
+    const userId = _req.params.id;
     const user = await UserRepository.getUserById(parseInt(userId as string));
     return res.status(200).json(user);
 });
